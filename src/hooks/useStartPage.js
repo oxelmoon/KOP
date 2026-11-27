@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import { useUsersStore } from "../store/usersStore";
 import { useMatchStore } from "../store/matchStore";
-import useSettings from "./useSettings";
+import { useGameSettings } from "../store/settingsStore";
 import describeSettings from "../utils/describeSettings";
 import { MAX_NAME_LENGTH, getOpponentName } from "../utils/players";
 import { MODES } from "../config/settings";
@@ -14,7 +14,7 @@ export const NEW_USER = "new";
 // Стартова сторінка: вибір (або створення) гравця, ім'я суперника і перехід до /users/:id/game.
 export default function useStartPage() {
   const navigate = useNavigate();
-  const { settings } = useSettings();
+  const settings = useGameSettings();
   const isPvc = settings.mode === MODES.PVC;
 
   const { users, lastUserId, lastOpponent, addUser, isNameTaken, setLastChoice } =
@@ -51,7 +51,7 @@ export default function useStartPage() {
     if (error) return;
     const userId = isNewUser ? addUser(playerName) : selectedId;
     setLastChoice(userId, opponent);
-    startMatch(userId, opponentName);
+    startMatch(userId, opponent);
     navigate(ROUTES.game(userId));
   };
 

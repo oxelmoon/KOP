@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import StartPage from "./pages/StartPage/StartPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
-import UsersPage from "./pages/UsersPage/UsersPage";
+import ResultsTablePage from "./pages/ResultsTablePage/ResultsTablePage";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import GamePage from "./pages/GamePage/GamePage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <StartPage /> },
       { path: "settings", element: <SettingsPage /> },
-      { path: "users", element: <UsersPage /> },
+      { path: "users", element: <ResultsTablePage /> },
       { path: "users/:userId", element: <UserProfilePage /> },
       { path: "users/:userId/game", element: <GamePage /> },
       { path: "users/:userId/results", element: <ResultsPage /> },

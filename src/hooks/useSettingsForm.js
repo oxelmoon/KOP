@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useSettings from "./useSettings";
+import { useShallow } from "zustand/react/shallow";
+import { useSettingsStore } from "../store/settingsStore";
+import { useMatchStore } from "../store/matchStore";
+import describeSettings from "../utils/describeSettings";
 import { settingsSchema } from "../validation/settingsSchema";
 import { DEFAULT_SETTINGS, MODES } from "../config/settings";
 import { ROUTES } from "../config/routes";
@@ -15,7 +19,19 @@ const toNumber = (value) => (value === "" ? "" : Number(value));
  */
 export default function useSettingsForm() {
   const navigate = useNavigate();
-  const { settings, saveSettings } = useSettings();
+  const { settings, savedAt, saveSettings, resetSettings } = useSettingsStore(
+    useShallow((state) => ({
+      settings: state.settings,
+      savedAt: state.savedAt,
+      saveSettings: state.saveSettings,
+      resetSettings: state.resetSettings,
+    }))
+  );
+  // Чи є незавершений матч — тоді нові налаштування застосуються лише з наступного.
+  const hasActiveMatch = useMatchStore(
+    (state) => state.settings !== null && state.winner === null
+  );
+  const [notice, setNotice] = useState("");
   const goBack = () => navigate(ROUTES.HOME);
 
   const {
@@ -47,13 +63,25 @@ export default function useSettingsForm() {
     roundsToWin: numberField("roundsToWin"),
   };
 
+  // Зберігаємо в стор і робимо збережені значення новою "чистою" точкою форми.
   const onSubmit = handleSubmit((values) => {
     saveSettings(values);
-    goBack();
+    reset(values);
+    setNotice("Налаштування збережено");
   });
 
-  // Скидаємо до стандартних, але зберігаються вони лише після натискання "Зберегти".
-  const resetToDefaults = () => reset(DEFAULT_SETTINGS, { keepDefaultValues: true });
+  // Скидаємо і стор, і форму до стандартних значень.
+  const resetToDefaults = () => {
+    resetSettings();
+    reset(DEFAULT_SETTINGS);
+    setNotice("Відновлено стандартні налаштування");
+  };
+
+  // Повертаємо форму до збережених у сторі значень.
+  const discardChanges = () => {
+    reset(settings);
+    setNotice("");
+  };
 
   return {
     fields,
@@ -61,9 +89,16 @@ export default function useSettingsForm() {
     onSubmit,
     resetToDefaults,
     goBack,
+    discardChanges,
+    notice: isDirty ? "" : notice,
+    savedAt: savedAt
+      ? new Date(savedAt).toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" })
+      : null,
+    currentSummary: describeSettings(settings),
+    hasActiveMatch,
     isPvc: mode === MODES.PVC,
     maxWinLength: Number(boardSize) || DEFAULT_SETTINGS.boardSize,
-    canSave: isValid,
+    canSave: isValid && isDirty,
     isDirty,
   };
 }

@@ -15,12 +15,41 @@ import {
 import styles from "./SettingsPage.module.css";
 
 export default function SettingsPage() {
-  const { fields, errors, onSubmit, resetToDefaults, goBack, isPvc, maxWinLength, canSave } =
-    useSettingsForm();
+  const {
+    fields,
+    errors,
+    onSubmit,
+    resetToDefaults,
+    discardChanges,
+    goBack,
+    notice,
+    savedAt,
+    currentSummary,
+    hasActiveMatch,
+    isDirty,
+    isPvc,
+    maxWinLength,
+    canSave,
+  } = useSettingsForm();
 
   return (
     <>
       <PageTitle eyebrow="Налаштування" title="Параметри гри" />
+
+      <Card className={styles.current}>
+        <div className={styles.currentHeader}>
+          <h2 className={styles.currentTitle}>Збережені налаштування</h2>
+          {savedAt && <span className={styles.savedAt}>змінено о {savedAt}</span>}
+        </div>
+        <ul className={styles.chips}>
+          {currentSummary.map((item) => (
+            <li key={item} className={styles.chip}>{item}</li>
+          ))}
+        </ul>
+        {hasActiveMatch && (
+          <p className={styles.hint}>Є незавершений матч — нові налаштування діятимуть з наступного.</p>
+        )}
+      </Card>
 
       <Card>
         <form className={styles.form} onSubmit={onSubmit} noValidate>
@@ -115,10 +144,18 @@ export default function SettingsPage() {
             </FormField>
           </div>
 
+          {notice && <p className={styles.notice} role="status">✓ {notice}</p>}
+          {isDirty && <p className={styles.unsaved}>Є незбережені зміни</p>}
+
           <div className={styles.actions}>
             <Button type="submit" disabled={!canSave}>Зберегти</Button>
-            <Button variant="secondary" onClick={resetToDefaults}>Скинути до стандартних</Button>
-            <Button variant="secondary" onClick={goBack}>Назад без збереження</Button>
+            <div className={styles.secondaryActions}>
+              <Button variant="secondary" onClick={discardChanges} disabled={!isDirty}>
+                Скасувати зміни
+              </Button>
+              <Button variant="secondary" onClick={resetToDefaults}>Стандартні</Button>
+            </div>
+            <Button variant="ghost" onClick={goBack}>На головну</Button>
           </div>
         </form>
       </Card>

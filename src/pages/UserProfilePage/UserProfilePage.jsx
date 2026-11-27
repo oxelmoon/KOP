@@ -39,7 +39,7 @@ export default function UserProfilePage() {
 
         <div className={styles.actions}>
           <Button onClick={play}>Грати</Button>
-          <Button variant="secondary" to={ROUTES.USERS}>Усі гравці</Button>
+          <Button variant="secondary" to={ROUTES.USERS}>Таблиця результатів</Button>
         </div>
       </Card>
 

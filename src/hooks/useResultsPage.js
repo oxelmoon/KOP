@@ -2,34 +2,30 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import { useUser } from "../store/usersStore";
 import { useMatchStore } from "../store/matchStore";
-import useSettings from "./useSettings";
 import { PLAYER_O, PLAYER_X } from "../utils/gameLogic";
-import { getMatchWinner } from "../utils/score";
 import { ROUTES } from "../config/routes";
 
-// Підсумки матчу /users/:userId/results.
+// Підсумки матчу /users/:userId/results. Переможець береться зі стору матчу,
+// тож він не зміниться, навіть якщо після матчу змінити налаштування.
 export default function useResultsPage() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { settings } = useSettings();
   const user = useUser(userId);
 
-  const { matchUserId, opponentName, score, isRecorded, startMatch } = useMatchStore(
+  const { matchUserId, opponentName, score, winner, startMatch } = useMatchStore(
     useShallow((state) => ({
       matchUserId: state.userId,
       opponentName: state.opponentName,
       score: state.score,
-      isRecorded: state.isRecorded,
+      winner: state.winner,
       startMatch: state.startMatch,
     }))
   );
 
-  const winner = getMatchWinner(score, settings.roundsToWin);
-
   return {
     user,
     // Сторінка має сенс лише після завершеного матчу цього гравця.
-    hasResult: Boolean(user) && matchUserId === userId && isRecorded && Boolean(winner),
+    hasResult: Boolean(user) && matchUserId === userId && Boolean(winner),
     winner,
     players: user ? { [PLAYER_X]: user.name, [PLAYER_O]: opponentName } : null,
     score,

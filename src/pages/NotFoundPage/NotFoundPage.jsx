@@ -12,7 +12,7 @@ export default function NotFoundPage({ message = "Такої сторінки н
       <p className={styles.message}>{message}</p>
       <div className={styles.actions}>
         <Button to={ROUTES.HOME}>На головну</Button>
-        <Button variant="secondary" to={ROUTES.USERS}>Список гравців</Button>
+        <Button variant="secondary" to={ROUTES.USERS}>Таблиця результатів</Button>
       </div>
     </Card>
   );

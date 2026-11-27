@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser, useUsersStore } from "../store/usersStore";
 import { useMatchStore } from "../store/matchStore";
-import useSettings from "./useSettings";
-import { formatDate, getOpponentName, getWinRate } from "../utils/players";
+import { formatDate, getWinRate } from "../utils/players";
 import { PLAYER_O, PLAYER_X } from "../utils/gameLogic";
 import { ROUTES } from "../config/routes";
 
@@ -11,7 +10,6 @@ import { ROUTES } from "../config/routes";
 export default function useUserProfile() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { settings } = useSettings();
   const user = useUser(userId);
   const removeUser = useUsersStore((state) => state.removeUser);
   const lastOpponent = useUsersStore((state) => state.lastOpponent);
@@ -31,7 +29,7 @@ export default function useUserProfile() {
       score: `${entry.score[PLAYER_X]} : ${entry.score[PLAYER_O]}`,
     })),
     play: () => {
-      startMatch(userId, getOpponentName(settings, lastOpponent));
+      startMatch(userId, lastOpponent);
       navigate(ROUTES.game(userId));
     },
     confirm: {

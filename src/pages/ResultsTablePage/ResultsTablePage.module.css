@@ -1,0 +1,237 @@
+.empty {
+  display: grid;
+  gap: 8px;
+  color: var(--color-secondary);
+  text-align: center;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.summaryItem {
+  display: grid;
+  gap: 2px;
+  padding: 16px;
+  text-align: center;
+}
+
+.summaryValue {
+  overflow: hidden;
+  font-size: 22px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summaryLabel {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.tableCard {
+  padding: 0;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search {
+  flex: 1 1 200px;
+  min-height: 42px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-accent);
+}
+
+.resetView {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-secondary);
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.table tbody tr:hover {
+  background: var(--color-surface-muted);
+}
+
+.table th {
+  background: var(--color-surface-muted);
+}
+
+.left {
+  text-align: left !important;
+}
+
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sortButton:hover,
+.sorted {
+  color: var(--color-accent);
+}
+
+.arrow {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.rankCell {
+  width: 44px;
+  color: var(--color-secondary);
+}
+
+.rank {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.first {
+  background: #fff3c4;
+  color: #8a6100;
+}
+
+.player {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 180px;
+  text-decoration: none;
+}
+
+.player:hover .playerName {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.playerName {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.wins {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.losses {
+  color: var(--color-danger);
+}
+
+.rate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rateBar {
+  position: relative;
+  width: 44px;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+}
+
+.rateBar::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--rate);
+  border-radius: inherit;
+  background: var(--color-accent);
+}
+
+.date {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.noRows {
+  margin: 0;
+  padding: 24px;
+  color: var(--color-secondary);
+  text-align: center;
+}
+
+.danger {
+  width: min(100%, 280px);
+  margin: 24px auto 0;
+}
+
+@media (max-width: 480px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Таблиця ширша за стандартну колонку сторінки — центруємо її відносно вікна. */
+.wide {
+  position: relative;
+  left: 50%;
+  width: min(100vw - 32px, 880px);
+  transform: translateX(-50%);
+}

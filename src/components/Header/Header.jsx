@@ -5,7 +5,7 @@ import styles from "./Header.module.css";
 
 const NAV_ITEMS = [
   { to: ROUTES.HOME, label: "Гра", end: true },
-  { to: ROUTES.USERS, label: "Гравці" },
+  { to: ROUTES.USERS, label: "Таблиця результатів" },
   { to: ROUTES.SETTINGS, label: "Налаштування" },
 ];
 
