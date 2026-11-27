@@ -1,0 +1,25 @@
+.cell {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: clamp(32px, 9vw, 56px);
+  font-weight: 800;
+}
+
+.cell:not(:disabled):hover {
+  background: var(--color-background);
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell--highlighted {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
