@@ -1,6 +1,7 @@
-import Header from "../../components/Header/Header";
+import Card from "../../components/Card/Card";
+import PageTitle from "../../components/PageTitle/PageTitle";
 import Button from "../../components/Button/Button";
-import FormField from "../../components/FormField/FormField";
+import FormField, { fieldStyles } from "../../components/FormField/FormField";
 import useSettingsForm from "../../hooks/useSettingsForm";
 import {
   BOARD_SIZES,
@@ -11,24 +12,22 @@ import {
   MIN_WIN_LENGTH,
   MODE_LABELS,
 } from "../../config/settings";
-import "./SettingsPage.css";
+import styles from "./SettingsPage.module.css";
 
-export default function SettingsPage({ onBack }) {
-  const { fields, errors, onSubmit, resetToDefaults, isPvc, maxWinLength, canSave } =
-    useSettingsForm({ onSaved: onBack });
+export default function SettingsPage() {
+  const { fields, errors, onSubmit, resetToDefaults, goBack, isPvc, maxWinLength, canSave } =
+    useSettingsForm();
 
   return (
-    <main className="page settings-page">
-      <Header />
-      <section className="settings-content">
-        <p className="eyebrow">НАЛАШТУВАННЯ</p>
-        <h1>Параметри гри</h1>
+    <>
+      <PageTitle eyebrow="Налаштування" title="Параметри гри" />
 
-        <form className="settings-form" onSubmit={onSubmit} noValidate>
+      <Card>
+        <form className={styles.form} onSubmit={onSubmit} noValidate>
           <FormField id="mode" label="Режим гри">
-            <div className="segmented" id="mode">
+            <div className={fieldStyles.segmented} id="mode">
               {Object.entries(MODE_LABELS).map(([value, label]) => (
-                <label key={value} className="segmented__option">
+                <label key={value} className={fieldStyles.option}>
                   <input type="radio" value={value} {...fields.mode} />
                   <span>{label}</span>
                 </label>
@@ -37,9 +36,9 @@ export default function SettingsPage({ onBack }) {
           </FormField>
 
           {isPvc && (
-            <div className="settings-form__row">
+            <div className={styles.row}>
               <FormField id="difficulty" label="Рівень складності" error={errors.difficulty?.message}>
-                <select id="difficulty" className="form-control" {...fields.difficulty}>
+                <select id="difficulty" className={fieldStyles.control} {...fields.difficulty}>
                   {Object.entries(DIFFICULTY_LABELS).map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
@@ -47,7 +46,7 @@ export default function SettingsPage({ onBack }) {
               </FormField>
 
               <FormField id="botSpeed" label="Швидкість ходу комп'ютера" error={errors.botSpeed?.message}>
-                <select id="botSpeed" className="form-control" {...fields.botSpeed}>
+                <select id="botSpeed" className={fieldStyles.control} {...fields.botSpeed}>
                   {Object.entries(BOT_SPEED_LABELS).map(([value, label]) => (
                     <option key={value} value={value}>{label}</option>
                   ))}
@@ -56,9 +55,9 @@ export default function SettingsPage({ onBack }) {
             </div>
           )}
 
-          <div className="settings-form__row">
+          <div className={styles.row}>
             <FormField id="boardSize" label="Розмір поля" error={errors.boardSize?.message}>
-              <select id="boardSize" className="form-control" {...fields.boardSize}>
+              <select id="boardSize" className={fieldStyles.control} {...fields.boardSize}>
                 {BOARD_SIZES.map((size) => (
                   <option key={size} value={size}>{size} × {size}</option>
                 ))}
@@ -73,7 +72,7 @@ export default function SettingsPage({ onBack }) {
             >
               <input
                 id="winLength"
-                className="form-control"
+                className={fieldStyles.control}
                 type="number"
                 min={MIN_WIN_LENGTH}
                 max={maxWinLength}
@@ -82,7 +81,7 @@ export default function SettingsPage({ onBack }) {
             </FormField>
           </div>
 
-          <div className="settings-form__row">
+          <div className={styles.row}>
             <FormField
               id="turnTime"
               label="Час на хід, с"
@@ -91,7 +90,7 @@ export default function SettingsPage({ onBack }) {
             >
               <input
                 id="turnTime"
-                className="form-control"
+                className={fieldStyles.control}
                 type="number"
                 min={0}
                 max={MAX_TURN_TIME}
@@ -107,7 +106,7 @@ export default function SettingsPage({ onBack }) {
             >
               <input
                 id="roundsToWin"
-                className="form-control"
+                className={fieldStyles.control}
                 type="number"
                 min={1}
                 max={MAX_ROUNDS_TO_WIN}
@@ -116,13 +115,13 @@ export default function SettingsPage({ onBack }) {
             </FormField>
           </div>
 
-          <div className="settings-form__actions">
+          <div className={styles.actions}>
             <Button type="submit" disabled={!canSave}>Зберегти</Button>
             <Button variant="secondary" onClick={resetToDefaults}>Скинути до стандартних</Button>
-            <Button variant="secondary" onClick={onBack}>Назад без збереження</Button>
+            <Button variant="secondary" onClick={goBack}>Назад без збереження</Button>
           </div>
         </form>
-      </section>
-    </main>
+      </Card>
+    </>
   );
 }

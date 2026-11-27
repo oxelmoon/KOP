@@ -2,24 +2,34 @@
   display: grid;
   place-items: center;
   width: 100%;
+  min-width: 0;
   aspect-ratio: 1;
   border: 0;
   border-radius: var(--radius-small);
   background: var(--color-surface);
-  color: var(--color-primary);
-  font-size: clamp(32px, 9vw, 56px);
+  font-size: calc(clamp(32px, 9vw, 56px) * 3 / var(--size, 3));
   font-weight: 800;
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .cell:not(:disabled):hover {
-  background: var(--color-background);
+  background: var(--color-accent-soft);
 }
 
 .cell:disabled {
   cursor: default;
 }
 
-.cell--highlighted {
+.x {
+  color: var(--color-x);
+}
+
+.o {
+  color: var(--color-o);
+}
+
+.highlighted {
   background: var(--color-primary);
-  color: var(--color-surface);
+  color: #fff;
+  transform: scale(0.96);
 }

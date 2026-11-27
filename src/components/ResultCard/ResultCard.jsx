@@ -1,25 +1,14 @@
-import "./ResultCard.css";
+import Card from "../Card/Card";
+import ScoreBoard from "../ScoreBoard/ScoreBoard";
+import styles from "./ResultCard.module.css";
 
-export default function ResultCard({
-  winner,
-  label = "Переможець",
-  isDraw = false,
-  scoreX,
-  scoreO,
-  draws,
-}) {
+export default function ResultCard({ winner, label = "Переможець", isDraw = false, score }) {
   return (
-    <article className="result-card">
-      <div className="result-card__icon">{isDraw ? "🤝" : "🏆"}</div>
-      <p className="result-card__label">{isDraw ? "Результат" : label}</p>
-      <h1>{isDraw ? "Нічия" : winner}</h1>
-
-      <div className="score">
-        <span>X</span>
-        <strong>{scoreX} : {scoreO}</strong>
-        <span>O</span>
-      </div>
-      <p className="result-card__draws">Нічиїх: {draws}</p>
-    </article>
+    <Card as="article" className={styles.card}>
+      <div className={styles.icon}>{isDraw ? "🤝" : "🏆"}</div>
+      <p className={styles.label}>{isDraw ? "Результат" : label}</p>
+      <h2 className={styles.winner}>{isDraw ? "Нічия" : winner}</h2>
+      <ScoreBoard score={score} />
+    </Card>
   );
 }

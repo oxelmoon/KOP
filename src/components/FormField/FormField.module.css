@@ -1,30 +1,30 @@
-.form-field {
+.field {
   display: grid;
   gap: 6px;
   text-align: left;
 }
 
-.form-field__label {
+.label {
   color: var(--color-secondary);
   font-size: 13px;
   font-weight: 700;
 }
 
-.form-field__hint,
-.form-field__error {
+.hint,
+.error {
   margin: 0;
   font-size: 12px;
 }
 
-.form-field__hint {
+.hint {
   color: var(--color-secondary);
 }
 
-.form-field__error {
+.error {
   color: var(--color-danger);
 }
 
-.form-control {
+.control {
   width: 100%;
   min-height: 48px;
   padding: 10px 14px;
@@ -32,57 +32,60 @@
   border-radius: var(--radius-small);
   background: var(--color-surface);
   color: var(--color-primary);
-  font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.form-control:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
+.control:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
 }
 
-.form-field--error .form-control {
+.hasError .control {
   border-color: var(--color-danger);
 }
 
 /* Перемикач-сегменти для radio */
 .segmented {
   display: grid;
-  grid-auto-flow: column;
   grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   gap: 4px;
   padding: 4px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
-  background: var(--color-surface);
+  background: var(--color-surface-muted);
 }
 
-.segmented__option {
+.option {
   position: relative;
 }
 
-.segmented__option input {
+.option input {
   position: absolute;
-  opacity: 0;
   inset: 0;
   margin: 0;
+  opacity: 0;
   cursor: pointer;
 }
 
-.segmented__option span {
+.option span {
   display: block;
   padding: 10px 8px;
-  border-radius: 6px;
+  border-radius: 7px;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+  transition: background 0.15s ease;
 }
 
-.segmented__option input:checked + span {
-  background: var(--color-primary);
-  color: var(--color-surface);
+.option input:checked + span {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-card);
 }
 
-.segmented__option input:focus-visible + span {
-  outline: 2px solid var(--color-primary);
+.option input:focus-visible + span {
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }

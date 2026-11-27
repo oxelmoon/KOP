@@ -1,0 +1,130 @@
+.profile {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.name {
+  margin: 14px 0 2px;
+  font-size: 30px;
+}
+
+.id {
+  margin: 0;
+  color: var(--color-secondary);
+  font-family: Consolas, monospace;
+  font-size: 12px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+  margin: 24px 0;
+}
+
+.stat {
+  padding: 12px 6px;
+  border-radius: var(--radius-small);
+  background: var(--color-surface-muted);
+}
+
+.stat dt {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.stat dd {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.history {
+  margin-top: 16px;
+}
+
+.sectionTitle {
+  margin: 0 0 14px;
+  font-size: 18px;
+}
+
+.empty {
+  margin: 0;
+  color: var(--color-secondary);
+}
+
+.matches {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.match {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.match:first-child {
+  border-top: 0;
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.win {
+  background: #e7f6ec;
+  color: var(--color-success);
+}
+
+.loss {
+  background: #fdecea;
+  color: var(--color-danger);
+}
+
+.opponent {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  grid-column: 2 / -1;
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.danger {
+  width: min(100%, 240px);
+  margin: 24px auto 0;
+}
+
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,31 @@
+.wrapper {
+  text-align: center;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.x {
+  color: var(--color-x);
+}
+
+.o {
+  color: var(--color-o);
+}
+
+.value {
+  font-size: 30px;
+  font-variant-numeric: tabular-nums;
+}
+
+.draws {
+  margin: 6px 0 0;
+  color: var(--color-secondary);
+  font-size: 13px;
+}

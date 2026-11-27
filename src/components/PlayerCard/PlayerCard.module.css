@@ -1,0 +1,47 @@
+.card {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.active {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
+}
+
+.symbol {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.x {
+  color: var(--color-x);
+}
+
+.o {
+  color: var(--color-o);
+}
+
+.name {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wins,
+.status {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.status {
+  min-height: 1em;
+  color: var(--color-accent);
+  font-weight: 700;
+  white-space: pre;
+}

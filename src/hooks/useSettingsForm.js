@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useSettings from "./useSettings";
 import { settingsSchema } from "../validation/settingsSchema";
 import { DEFAULT_SETTINGS, MODES } from "../config/settings";
+import { ROUTES } from "../config/routes";
 
 // HTML-інпути віддають рядки — для числових полів перетворюємо на числа ("" лишаємо для валідації).
 const toNumber = (value) => (value === "" ? "" : Number(value));
@@ -11,8 +13,10 @@ const toNumber = (value) => (value === "" ? "" : Number(value));
  * Уся логіка форми налаштувань: react-hook-form + yup-схема.
  * Сторінка отримує готові field-пропси й лише рендерить їх.
  */
-export default function useSettingsForm({ onSaved } = {}) {
+export default function useSettingsForm() {
+  const navigate = useNavigate();
   const { settings, saveSettings } = useSettings();
+  const goBack = () => navigate(ROUTES.HOME);
 
   const {
     register,
@@ -45,7 +49,7 @@ export default function useSettingsForm({ onSaved } = {}) {
 
   const onSubmit = handleSubmit((values) => {
     saveSettings(values);
-    onSaved?.();
+    goBack();
   });
 
   // Скидаємо до стандартних, але зберігаються вони лише після натискання "Зберегти".
@@ -56,6 +60,7 @@ export default function useSettingsForm({ onSaved } = {}) {
     errors,
     onSubmit,
     resetToDefaults,
+    goBack,
     isPvc: mode === MODES.PVC,
     maxWinLength: Number(boardSize) || DEFAULT_SETTINGS.boardSize,
     canSave: isValid,

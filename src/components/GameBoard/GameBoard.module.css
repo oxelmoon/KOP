@@ -1,0 +1,11 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--size, 3), 1fr);
+  gap: 8px;
+  width: min(100%, 420px);
+  margin: 0 auto 24px;
+  padding: 8px;
+  border-radius: var(--radius-medium);
+  background: var(--color-border);
+  box-shadow: var(--shadow-card);
+}

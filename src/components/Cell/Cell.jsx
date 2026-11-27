@@ -1,9 +1,15 @@
-import "./Cell.css";
+import cx from "../../utils/cx";
+import { PLAYER_X } from "../../utils/gameLogic";
+import styles from "./Cell.module.css";
 
 export default function Cell({ value = "", index, onClick, disabled, highlighted }) {
   return (
     <button
-      className={`cell ${highlighted ? "cell--highlighted" : ""}`}
+      className={cx(
+        styles.cell,
+        value && (value === PLAYER_X ? styles.x : styles.o),
+        highlighted && styles.highlighted
+      )}
       type="button"
       onClick={onClick}
       disabled={disabled}

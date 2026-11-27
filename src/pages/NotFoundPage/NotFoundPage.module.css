@@ -1,0 +1,27 @@
+.card {
+  text-align: center;
+}
+
+.code {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.title {
+  margin: 8px 0 4px;
+  font-size: 26px;
+}
+
+.message {
+  margin: 0 0 24px;
+  color: var(--color-secondary);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

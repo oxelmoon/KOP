@@ -1,0 +1,72 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  width: min(100% - 32px, 960px);
+  min-height: 64px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.logoX,
+.logoO {
+  font-size: 20px;
+}
+
+.logoX {
+  color: var(--color-x);
+}
+
+.logoO {
+  color: var(--color-o);
+}
+
+.logoText {
+  margin-left: 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+}
+
+.link {
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--color-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.link:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+}
+
+.active,
+.active:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}

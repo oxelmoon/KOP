@@ -1,12 +1,16 @@
-import "./PlayerCard.css";
+import cx from "../../utils/cx";
+import { PLAYER_X } from "../../utils/gameLogic";
+import styles from "./PlayerCard.module.css";
 
 export default function PlayerCard({ name, symbol, wins = 0, active = false }) {
   return (
-    <article className={`player-card ${active ? "player-card--active" : ""}`}>
-      <span className="player-card__symbol">{symbol}</span>
-      <span className="player-card__name">{name}</span>
-      <span className="player-card__wins">Перемог: {wins}</span>
-      {active && <span className="player-card__status">Ваш хід</span>}
+    <article className={cx(styles.card, active && styles.active)}>
+      <span className={cx(styles.symbol, symbol === PLAYER_X ? styles.x : styles.o)}>
+        {symbol}
+      </span>
+      <span className={styles.name}>{name}</span>
+      <span className={styles.wins}>Перемог: {wins}</span>
+      <span className={styles.status}>{active ? "Ваш хід" : " "}</span>
     </article>
   );
 }

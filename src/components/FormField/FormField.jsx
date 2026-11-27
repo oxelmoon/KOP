@@ -1,17 +1,21 @@
-import "./FormField.css";
+import cx from "../../utils/cx";
+import styles from "./FormField.module.css";
+
+// Класи для самих контролів (input/select/radio), щоб сторінки могли їх використовувати.
+export const fieldStyles = styles;
 
 // Обгортка поля форми: підпис, підказка та повідомлення про помилку.
 export default function FormField({ id, label, hint, error, children }) {
   return (
-    <div className={`form-field ${error ? "form-field--error" : ""}`}>
-      <label className="form-field__label" htmlFor={id}>
+    <div className={cx(styles.field, error && styles.hasError)}>
+      <label className={styles.label} htmlFor={id}>
         {label}
       </label>
       {children}
       {error ? (
-        <p className="form-field__error" role="alert">{error}</p>
+        <p className={styles.error} role="alert">{error}</p>
       ) : (
-        hint && <p className="form-field__hint">{hint}</p>
+        hint && <p className={styles.hint}>{hint}</p>
       )}
     </div>
   );

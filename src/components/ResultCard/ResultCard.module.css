@@ -1,0 +1,19 @@
+.card {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 44px;
+}
+
+.label {
+  margin: 12px 0 4px;
+  color: var(--color-secondary);
+  font-size: 13px;
+}
+
+.winner {
+  margin: 0 0 20px;
+  font-size: 32px;
+}
