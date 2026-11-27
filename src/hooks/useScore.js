@@ -1,25 +1,16 @@
 import { useCallback, useState } from "react";
-import { DRAW, PLAYER_O, PLAYER_X } from "../utils/gameLogic";
+import { EMPTY_SCORE, addResult } from "../utils/score";
 
-const EMPTY_SCORE = { [PLAYER_X]: 0, [PLAYER_O]: 0, [DRAW]: 0 };
-
-// Рахунок серії ігор + результат останньої партії (для сторінки результатів).
+// Рахунок поточного матчу (серії турів).
 export default function useScore() {
   const [score, setScore] = useState(EMPTY_SCORE);
-  const [lastWinner, setLastWinner] = useState(null);
 
   const registerResult = useCallback(
-    (winner) => {
-      setLastWinner(winner);
-      setScore((prev) => ({ ...prev, [winner]: (prev[winner] ?? 0) + 1 }));
-    },
-    [setScore]
+    (winner) => setScore((prev) => addResult(prev, winner)),
+    []
   );
 
-  const resetScore = useCallback(() => {
-    setScore(EMPTY_SCORE);
-    setLastWinner(null);
-  }, [setScore]);
+  const resetScore = useCallback(() => setScore(EMPTY_SCORE), []);
 
-  return { score, lastWinner, registerResult, resetScore };
+  return { score, registerResult, resetScore };
 }

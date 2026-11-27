@@ -1,4 +1,5 @@
 import StartPage from "./pages/StartPage/StartPage";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import GamePage from "./pages/GamePage/GamePage";
 import ResultsPage from "./pages/ResultsPage/ResultsPage";
 import useGameFlow from "./hooks/useGameFlow";
@@ -8,40 +9,58 @@ function App() {
   const {
     page,
     playersState,
+    settings,
+    settingsSummary,
     score,
-    lastWinner,
+    matchWinner,
     startGame,
-    finishGame,
-    playAgain,
+    finishRound,
+    newMatch,
+    openSettings,
     backToStart,
   } = useGameFlow();
 
-  if (page === PAGES.GAME) {
-    return <GamePage players={playersState.players} score={score} onFinish={finishGame} />;
-  }
+  switch (page) {
+    case PAGES.SETTINGS:
+      return <SettingsPage onBack={backToStart} />;
 
-  if (page === PAGES.RESULTS) {
-    return (
-      <ResultsPage
-        winner={lastWinner}
-        players={playersState.players}
-        score={score}
-        onPlayAgain={playAgain}
-        onBackToStart={backToStart}
-      />
-    );
-  }
+    case PAGES.GAME:
+      return (
+        <GamePage
+          settings={settings}
+          players={playersState.players}
+          score={score}
+          onRoundEnd={finishRound}
+          onExit={backToStart}
+        />
+      );
 
-  return (
-    <StartPage
-      names={playersState.names}
-      placeholders={playersState.placeholders}
-      error={playersState.error}
-      isValid={playersState.isValid}
-      onNameChange={playersState.setPlayerName}
-      onStart={startGame}
-    />
-  );
+    case PAGES.RESULTS:
+      return (
+        <ResultsPage
+          winner={matchWinner}
+          players={playersState.players}
+          score={score}
+          onNewMatch={newMatch}
+          onBackToStart={backToStart}
+        />
+      );
+
+    default:
+      return (
+        <StartPage
+          names={playersState.names}
+          placeholders={playersState.placeholders}
+          editableSymbols={playersState.editableSymbols}
+          error={playersState.error}
+          isValid={playersState.isValid}
+          settingsSummary={settingsSummary}
+          onNameChange={playersState.setPlayerName}
+          onStart={startGame}
+          onOpenSettings={openSettings}
+        />
+      );
+  }
 }
 
 export default App;

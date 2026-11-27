@@ -2,15 +2,19 @@ import { useCallback } from "react";
 import useNavigation from "./useNavigation";
 import usePlayers from "./usePlayers";
 import useScore from "./useScore";
+import useSettings from "./useSettings";
+import describeSettings from "../utils/describeSettings";
+import { addResult, getMatchWinner } from "../utils/score";
 
-// Поєднує навігацію, гравців і рахунок — App лише рендерить потрібну сторінку.
+// Поєднує навігацію, гравців, налаштування і рахунок матчу — App лише рендерить потрібну сторінку.
 export default function useGameFlow() {
   const navigation = useNavigation();
   const playersState = usePlayers();
-  const scoreState = useScore();
+  const { settings } = useSettings();
+  const { score, registerResult, resetScore } = useScore();
 
-  const { goToStart, goToGame, goToResults } = navigation;
-  const { registerResult, resetScore } = scoreState;
+  const { goToStart, goToSettings, goToGame, goToResults } = navigation;
+  const { roundsToWin } = settings;
 
   const startGame = useCallback(() => {
     if (!playersState.isValid) return;
@@ -18,25 +22,31 @@ export default function useGameFlow() {
     goToGame();
   }, [playersState.isValid, resetScore, goToGame]);
 
-  const finishGame = useCallback(
+  // Зараховуємо тур; якщо хтось набрав потрібну кількість перемог — показуємо підсумки матчу.
+  const finishRound = useCallback(
     (winner) => {
       registerResult(winner);
-      goToResults();
+      if (getMatchWinner(addResult(score, winner), roundsToWin)) goToResults();
     },
-    [registerResult, goToResults]
+    [registerResult, score, roundsToWin, goToResults]
   );
 
-  const playAgain = goToGame;
-  const backToStart = goToStart;
+  const newMatch = useCallback(() => {
+    resetScore();
+    goToGame();
+  }, [resetScore, goToGame]);
 
   return {
     page: navigation.page,
     playersState,
-    score: scoreState.score,
-    lastWinner: scoreState.lastWinner,
+    settings,
+    settingsSummary: describeSettings(settings),
+    score,
+    matchWinner: getMatchWinner(score, roundsToWin),
     startGame,
-    finishGame,
-    playAgain,
-    backToStart,
+    finishRound,
+    newMatch,
+    openSettings: goToSettings,
+    backToStart: goToStart,
   };
 }

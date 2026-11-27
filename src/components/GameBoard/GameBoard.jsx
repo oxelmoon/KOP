@@ -1,9 +1,9 @@
 import Cell from "../Cell/Cell";
 import "./GameBoard.css";
 
-export default function GameBoard({ board, winningLine = [], disabled, onCellClick }) {
+export default function GameBoard({ board, size = 3, winningLine = [], disabled, onCellClick }) {
   return (
-    <div className="game-board">
+    <div className="game-board" style={{ "--size": size }}>
       {board.map((value, index) => (
         <Cell
           key={index}

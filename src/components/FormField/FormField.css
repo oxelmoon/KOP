@@ -1,0 +1,88 @@
+.form-field {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-field__label {
+  color: var(--color-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-field__hint,
+.form-field__error {
+  margin: 0;
+  font-size: 12px;
+}
+
+.form-field__hint {
+  color: var(--color-secondary);
+}
+
+.form-field__error {
+  color: var(--color-danger);
+}
+
+.form-control {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font: inherit;
+}
+
+.form-control:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.form-field--error .form-control {
+  border-color: var(--color-danger);
+}
+
+/* Перемикач-сегменти для radio */
+.segmented {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+}
+
+.segmented__option {
+  position: relative;
+}
+
+.segmented__option input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.segmented__option span {
+  display: block;
+  padding: 10px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.segmented__option input:checked + span {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.segmented__option input:focus-visible + span {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
